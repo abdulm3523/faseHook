@@ -1,7 +1,7 @@
 import Filed from "../common/filed";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../assets/hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 const LoginForm = () => {
   const { auth, setAuth } = useAuth();

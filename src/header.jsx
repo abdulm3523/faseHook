@@ -4,7 +4,7 @@ import NotificationIcon from "./assets/icons/notification.svg";
 import Avatars from "./assets/images/avatars/avatar_1.png";
 import Logo from "./assets/images/logo.svg";
 import Logout from "./components/auth/logout";
-import useAuth from "./assets/hooks/useAuth";
+import useAuth from "./hooks/useAuth";
 
 const Header = () => {
   const { auth } = useAuth();

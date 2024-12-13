@@ -6,7 +6,7 @@ import Profile from "./pages/Profile";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import "./App.css";
-import PrivateRoute from "./assets/privateRoute/privateRoute";
+import PrivateRoute from "./privateRoute/privateRoute";
 function App() {
   return (
     <>

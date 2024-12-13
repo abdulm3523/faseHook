@@ -1,7 +1,25 @@
-import useAuth from "../assets/hooks/useAuth";
+import { useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
+import useAxios from "../hooks/useAxios";
+import { meta } from "@eslint/js";
 
 const Profile = () => {
+  const [user, setUser] = useState(null);
+  const [post, setPost] = useState([]);
+
+  const { api } = useAxios();
   const { auth } = useAuth();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await api.get(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/profile/${auth?.user?.id}`
+      );
+      setUser(response.data.user);
+      setPost(response.data.posts);
+    };
+    fetchProfile();
+  }, []);
   return (
     <>
       <main className="mx-auto max-w-[1020px] py-8">
@@ -11,7 +29,7 @@ const Profile = () => {
               <img
                 className="max-w-full"
                 src="./assets/images/avatars/avatar_1.png"
-                alt={`${auth?.user?.firstName} ${auth?.user?.lastName}`}
+                alt={`${user?.firstName} ${user?.lastName}`}
               />
 
               <button className="flex-center absolute bottom-4 right-4 h-7 w-7 rounded-full bg-black/50 hover:bg-black/80">
@@ -21,21 +39,16 @@ const Profile = () => {
 
             <div>
               <h3 className="text-2xl font-semibold text-white lg:text-[28px]">
-                {`${auth?.user?.firstName} ${auth?.user?.lastName}`}
+                {`${user?.firstName} ${user?.lastName}`}
+                {console.log("user", user)}
               </h3>
-              <p className="leading-[231%] lg:text-lg">{auth?.user?.email}</p>
+              <p className="leading-[231%] lg:text-lg">{user?.email}</p>
             </div>
 
             <div className="mt-4 flex items-start gap-2 lg:mt-6">
               <div className="flex-1">
                 <p className="leading-[188%] text-gray-400 lg:text-lg">
-                  Sumit is an entrepreneurial visionary known for his
-                  exceptional performance and passion for technology and
-                  business. He established Analyzen in 2008 while he was a
-                  student at Bangladesh University of Engineering & Technology
-                  (BUET). Analyzen has since become a top-tier Web and Mobile
-                  Application Development firm and the first Digital and Social
-                  Media Marketing Agency in Bangladesh.
+                  {user?.bio}
                 </p>
               </div>
 
