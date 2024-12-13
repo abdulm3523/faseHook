@@ -4,8 +4,10 @@ import NotificationIcon from "./assets/icons/notification.svg";
 import Avatars from "./assets/images/avatars/avatar_1.png";
 import Logo from "./assets/images/logo.svg";
 import Logout from "./components/auth/logout";
+import useAuth from "./assets/hooks/useAuth";
 
 const Header = () => {
+  const { auth } = useAuth();
   return (
     <nav class="sticky top-0 z-50 border-b border-[#3F3F3F] bg-[#1E1F24] py-4">
       <div class="container flex flex-col items-center justify-between gap-6 sm:flex-row">
@@ -24,7 +26,10 @@ const Header = () => {
           <Logout />
 
           <Link to={"/me/abdul"} class="flex-center !ml-8 gap-3">
-            <span class="text-lg font-medium lg:text-xl">Sumit</span>
+            <span class="text-lg font-medium lg:text-xl">
+              {/* {console.log(auth)} */}
+              {console.log(auth?.user?.firstName)}
+            </span>
             <img
               class="max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px]"
               src={Avatars}

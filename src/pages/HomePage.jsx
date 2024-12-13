@@ -1,9 +1,9 @@
-import Header from "../header";
+// import Header from "../header";
 
 const HomePage = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="mx-auto max-w-[1020px] py-8">
         <div className="container">
           <div className="card">

@@ -1,17 +1,52 @@
 import Filed from "../common/filed";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../assets/hooks/useAuth";
+import axios from "axios";
 const LoginForm = () => {
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
+
+  // HANDEL FORM DATA
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
-  const onSubmitForm = (formData) => {
-    console.log(formData);
-    navigate("/home");
+
+  // HANDEL LOGIN ON SUBMIT
+  const onSubmitForm = async (formData) => {
+    // const user = { ...formData };
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
+        formData
+      );
+
+      // IF response is succesfully received
+
+      if (response.status === 200) {
+        console.log(response.status);
+        const { user, token } = response.data;
+        if (token) {
+          const authToked = token.token;
+          const refreshToken = token.refreshToken;
+          console.log(authToked);
+          setAuth({ user, authToked, refreshToken });
+          navigate("/"); // NAVIGATE TO HOME PAGE AFTER LOGIN
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setError("root.LoginError", {
+        type: "LoginError",
+        message: "Please Enter valid information",
+      });
+    }
   };
+  console.log("hello");
   return (
     <form
       onSubmit={handleSubmit(onSubmitForm)}
@@ -42,6 +77,7 @@ const LoginForm = () => {
           className="auth-input"
         />
       </Filed>
+      <p>{errors?.root?.LoginError?.message}</p>
       <Filed>
         <button
           className="auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90"

@@ -6,16 +6,19 @@ import Profile from "./pages/Profile";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import "./App.css";
+import PrivateRoute from "./assets/privateRoute/privateRoute";
 function App() {
   return (
     <>
       <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route path="/me/:user" element={<Profile />} />
+          <Route path="/" element={<HomePage />} exact />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/me/:user" element={<Profile />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/" element={<HomePage />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
