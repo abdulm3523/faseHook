@@ -31,10 +31,10 @@ const LoginForm = () => {
         console.log(response.status);
         const { user, token } = response.data;
         if (token) {
-          const authToked = token.token;
+          const authToken = token.token;
           const refreshToken = token.refreshToken;
-          console.log(authToked);
-          setAuth({ user, authToked, refreshToken });
+          console.log(authToken);
+          setAuth({ user, authToken, refreshToken });
           navigate("/"); // NAVIGATE TO HOME PAGE AFTER LOGIN
         }
       }
